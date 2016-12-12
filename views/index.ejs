@@ -10,43 +10,43 @@
 <body>
 
   <div class="keys">
-    <button data-key="65" class="key">
-      <kbd>A</kbd>
+    <div data-key="65" class="key js-key">
+      <kbd class="js-key">A</kbd>
       <span class="sound">clap</span>
-    </button>
-    <button data-key="83" class="key">
+    </div>
+    <div data-key="83" class="key">
       <kbd>S</kbd>
       <span class="sound">hihat</span>
-    </button>
-    <button data-key="68" class="key">
+    </div>
+    <div data-key="68" class="key">
       <kbd>D</kbd>
       <span class="sound">kick</span>
-    </button>
-    <button data-key="70" class="key">
+    </div>
+    <div data-key="70" class="key">
       <kbd>F</kbd>
       <span class="sound">openhat</span>
-    </button>
-    <button data-key="71" class="key">
+    </div>
+    <div data-key="71" class="key">
       <kbd>G</kbd>
       <span class="sound">boom</span>
-    </button>
-    <button data-key="72" class="key">
+    </div>
+    <div data-key="72" class="key">
       <kbd>H</kbd>
       <span class="sound">ride</span>
-    </button>
-    <button data-key="74" class="key">
+    </div>
+    <div data-key="74" class="key">
       <kbd>J</kbd>
       <span class="sound">snare</span>
-    </button>
-    <button data-key="75" class="key">
+    </div>
+    <div data-key="75" class="key">
       <div></div>
       <kbd>K</kbd>
       <span class="sound">tom</span>
-    </button>
-    <button data-key="76" class="key">
+    </div>
+    <div data-key="76" class="key">
       <kbd>L</kbd>
       <span class="sound">tink</span>
-    </button>
+    </div>
   </div>
 
   <audio data-key="65" src="sounds/clap.wav"></audio>
@@ -63,7 +63,6 @@
   <script>
 
   document.addEventListener("DOMContentLoaded", function(event) {
-    var key = document.querySelector('.key');
 
     function playSound(e){
       const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
@@ -90,7 +89,7 @@
 
     const keys = document.querySelectorAll('.key');
     keys.forEach(key => key.addEventListener('transitionend', removeTransition));
-    key.addEventListener('touchstart', playClickSound);
+    keys.forEach(key => key.addEventListener('click', playClickSound));
     window.addEventListener('keydown', playSound);
 
   });
