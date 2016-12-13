@@ -5,48 +5,46 @@
   <meta charset="UTF-8">
   <title>Rainy Day Drums</title>
   <link rel="stylesheet" href="style.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </head>
 <body>
 
   <div class="keys">
-    <div data-key="65" class="key js-key">
-      <kbd class="js-key">A</kbd>
-      <span class="sound">clap</span>
-    </div>
-    <div data-key="83" class="key">
-      <kbd>S</kbd>
-      <span class="sound">hihat</span>
-    </div>
-    <div data-key="68" class="key">
-      <kbd>D</kbd>
-      <span class="sound">kick</span>
-    </div>
-    <div data-key="70" class="key">
-      <kbd>F</kbd>
-      <span class="sound">openhat</span>
-    </div>
-    <div data-key="71" class="key">
-      <kbd>G</kbd>
-      <span class="sound">boom</span>
-    </div>
-    <div data-key="72" class="key">
-      <kbd>H</kbd>
-      <span class="sound">ride</span>
-    </div>
-    <div data-key="74" class="key">
-      <kbd>J</kbd>
-      <span class="sound">snare</span>
-    </div>
-    <div data-key="75" class="key">
-      <div></div>
-      <kbd>K</kbd>
-      <span class="sound">tom</span>
-    </div>
-    <div data-key="76" class="key">
-      <kbd>L</kbd>
-      <span class="sound">tink</span>
-    </div>
+    <button data-key="65" class="key button js-key">
+      <kbd data-key="65" class="js-key">A</kbd>
+      <span data-key="65" class="sound js-key">clap</span>
+    </button>
+    <button data-key="83" class="key button js-key">
+      <kbd data-key="83" class="js-key">S</kbd>
+      <span data-key="83" class="sound js-key">hihat</span>
+    </button>
+    <button data-key="68" class="key button js-key">
+      <kbd data-key="68" class="js-key">D</kbd>
+      <span data-key="68" class="sound js-key">kick</span>
+    </button>
+    <button data-key="70" class="key button js-key">
+      <kbd data-key="70" class="js-key">F</kbd>
+      <span data-key="70" class="sound js-key">openhat</span>
+    </button>
+    <button data-key="71" class="key button js-key">
+      <kbd data-key="71" class="js-key">G</kbd>
+      <span data-key="71" class="sound js-key">boom</span>
+    </button>
+    <button data-key="72" class="key button js-key">
+      <kbd data-key="72" class="js-key">H</kbd>
+      <span data-key="72" class="sound js-key">ride</span>
+    </button>
+    <button data-key="74" class="key button js-key">
+      <kbd data-key="74" class="js-key">J</kbd>
+      <span data-key="74" class="sound js-key">snare</span>
+    </button>
+    <button data-key="75" class="key button js-key">
+      <kbd data-key="75" class="js-key">K</kbd>
+      <span data-key="75" class="sound js-key">tom</span>
+    </button>
+    <button data-key="76" class="key button js-key">
+      <kbd data-key="76" class="js-key">L</kbd>
+      <span data-key="76" class="sound js-key">tink</span>
+    </button>
   </div>
 
   <audio data-key="65" src="sounds/clap.wav"></audio>
@@ -62,7 +60,10 @@
 
   <script>
 
-  document.addEventListener("DOMContentLoaded", function(event) {
+    var button = document.querySelectorAll('.js-key');
+    for(var i=0; i < button.length; i++){
+        button[i].addEventListener('touchstart', playClickSound);
+    }
 
     function playSound(e){
       const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
@@ -74,6 +75,7 @@
     }
 
     function playClickSound(e){
+      console.log(e.srcElement.attributes[0].value, 'event');
       const audio = document.querySelector(`audio[data-key="${e.srcElement.attributes[0].value}"]`);
       const key = document.querySelector(`.key[data-key="${e.srcElement.attributes[0].value}"]`);
       if(!audio) return;// stop the dunction from running all together
@@ -88,11 +90,10 @@
     }
 
     const keys = document.querySelectorAll('.key');
+    const buttons = document.querySelectorAll('.button');
     keys.forEach(key => key.addEventListener('transitionend', removeTransition));
-    keys.forEach(key => key.addEventListener('touchstart', playClickSound));
+    buttons.forEach(button => button.addEventListener('transitionend', removeTransition));
     window.addEventListener('keydown', playSound);
-
-  });
 
 </script>
 </body>
